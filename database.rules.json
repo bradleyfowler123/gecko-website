@@ -1,0 +1,40 @@
+{
+  "rules": {
+    
+        // users data
+    "users": {
+      "$uid": {
+        ".write": "$uid === auth.uid",      // only the user can write to their location
+        ".read": "$uid === auth.uid || data.child('friendUIDs').child(auth.uid).val() === true" // the user OR the allowed friends of the user can read the users data
+      }
+    },
+
+           // business users data
+    "busers": {
+      "$uid": {
+        ".write": "$uid === auth.uid",   
+        ".read": "$uid === auth.uid"
+      },
+       "agora": {
+        ".write": true,   
+        ".read": true
+      } 
+    },
+      
+        // facebook IDs to firebase UIDs lookup table
+    "facebookIDs": {
+      ".read": "auth != null",          // anyone signed in can read data from the lookup table
+        "$fbID":{
+          ".write": "auth != null && !data.exists()", // anyone signed in can enter a new entry to the lookup table
+          ".validate": "newData.val() === auth.uid"   // provided that they are entering their user id
+        }
+    },
+      
+        // all of the activity data  
+    "activitydata": {
+      ".read": true,                  // anyone can read all of the data
+      ".write": true                  // what i want, only a company can edit or delete its events. Companies can add events 
+                                      // also validate the data to stop nonsense entries 
+    }
+  }
+}
