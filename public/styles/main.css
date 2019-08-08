@@ -39,8 +39,9 @@ header p {
 .jumbotron {
   display: flex;
   align-items: center;
-  background-image: url('http://the-indie-pendent.com/wp-content/uploads/2016/08/3-12.jpg');
+  background-image: url('/images/background.jpg');
   background-size: cover;
+  background-position: 0 -25rem;
   color: #ffffff;
   height: 500px;
   text-shadow: 0.25px 0.25px 0.25px #000000;
